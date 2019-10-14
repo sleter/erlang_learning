@@ -1,13 +1,14 @@
 -module(cw2).
 % -compile(export_all).
 -export([bar/0, map/2, map_lc/2, foldrC/3, foldrH/3]).
+-export([base1/0,base2/0]).
 
 bar() ->
     X=3,
     Add = fun(Y)-> X+Y end,
     Add(10).
 
-%zad2 - base1 = 2 | base2 = 1
+%zad2 - base1 = error | base2 = 1
 %zad3 - "a/0's password is pony"
 
 map(_,[])->[];
@@ -33,3 +34,5 @@ foldrC(F,Accu,[])when is_function(F,2)->Accu.
 % wybiera min liczbe
 % zwraca 21 sume wszystkich liczb
 
+% zad10
+% potega -> lists:foldl(fun(A,B) -> A*B end, 1, [2,3,4,5]).
