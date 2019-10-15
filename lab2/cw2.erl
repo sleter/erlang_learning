@@ -1,7 +1,6 @@
 -module(cw2).
-% -compile(export_all).
--export([bar/0, map/2, map_lc/2, foldrC/3, foldrH/3]).
--export([base1/0,base2/0]).
+-export([bar/0, map/2, map_lc/2, foldrC/3, foldrH/3, iterate/3, examp_while/1]).
+-export([usun_i/2,zamien/3]).
 
 bar() ->
     X=3,
@@ -20,13 +19,12 @@ map_lc(F,L) ->
     [F(X) || X <- L].
 
 %zad8
-%cw2:foldrC(fun(A,B) when A>B -> A; (_,B)->B end, 4, [4,1,2,7,3]).
+% cw2:foldrC(fun(A,B) when A>B -> A; (_,B)->B end, 4, [4,1,2,7,3]).
 foldrH(_, Start, [])->Start;
-foldrH(F, Start, [H|T])->
-    F(H, foldrH(F,Start,T)).
+foldrH(F, Start, [H|T])->F(H, foldrH(F,Start,T)).
 
 foldrC(F, Accu, [Hd|Tail])->
-    F(Hd, foldrC(F,Accu,Tail));
+    F(Hd, foldrC(F,Accu++[Hd],Tail));
 foldrC(F,Accu,[])when is_function(F,2)->Accu.
 
 % zad9
@@ -36,3 +34,23 @@ foldrC(F,Accu,[])when is_function(F,2)->Accu.
 
 % zad10
 % potega -> lists:foldl(fun(A,B) -> A*B end, 1, [2,3,4,5]).
+
+iterate(S, IsDone, Transform) ->
+ %IsDone i Transform są jednoargumentowe
+    C = IsDone(S),
+    if C -> S;
+        true -> S1 = Transform(S), iterate(S1, IsDone, Transform)
+    end.
+
+examp_while(X)->
+    iterate(5,fun(G) -> X, X<G end,fun(_) -> X*2 end).
+
+usun_i(E,L)->usun_i(E,L,[]).
+usun_i(_,[],R)->R;
+usun_i(E,[H|T],R) when H==E ->
+    usun_i(E,T,R);
+usun_i(E,[H|T],R) when H=/=E ->
+    usun_i(E,T,R++[H]).
+
+zamien(From,To,L)->
+    lists:foldl(fun(E,A) when E==From -> A++[To]; (E,A)->A++[E] end, [], L).
