@@ -1,6 +1,6 @@
 -module(cw2).
 -export([bar/0, map/2, map_lc/2, foldrC/3, foldrH/3, iterate/3, examp_while/1]).
--export([usun_i/2,zamien/3]).
+-export([usun/2,zamien/3]).
 
 bar() ->
     X=3,
@@ -45,12 +45,13 @@ iterate(S, IsDone, Transform) ->
 examp_while(X)->
     iterate(5,fun(G) -> X, X<G end,fun(_) -> X*2 end).
 
-usun_i(E,L)->usun_i(E,L,[]).
-usun_i(_,[],R)->R;
-usun_i(E,[H|T],R) when H==E ->
-    usun_i(E,T,R);
-usun_i(E,[H|T],R) when H=/=E ->
-    usun_i(E,T,R++[H]).
-
 zamien(From,To,L)->
     lists:foldl(fun(E,A) when E==From -> A++[To]; (E,A)->A++[E] end, [], L).
+
+usun(Elem,L)->
+    lists:foldl(fun(E,A) when E==Elem -> A; (E,A)->A++[E] end, [], L).
+
+% wstaw(Elem,L)->
+%     wstaw(Elem, 0, L).
+% wstaw(Elem, T, L)->
+%     lists:foldl(fun(E,T,A) when E<Elem and T==0 -> A++[Elem], T+1; (E,A)->A++[E] end, [], L).
