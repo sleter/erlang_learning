@@ -1,6 +1,7 @@
 -module(cw2).
--export([bar/0, map/2, map_lc/2, foldrC/3, foldrH/3, iterate/3, examp_while/1]).
--export([usun/2,zamien/3]).
+% -export([bar/0, map/2, map_lc/2, foldrC/3, foldrH/3, iterate/3, examp_while/1]).
+% -export([usun/2,zamien/3]).
+-compile(export_all).
 
 bar() ->
     X=3,
@@ -51,7 +52,5 @@ zamien(From,To,L)->
 usun(Elem,L)->
     lists:foldl(fun(E,A) when E==Elem -> A; (E,A)->A++[E] end, [], L).
 
-% wstaw(Elem,L)->
-%     wstaw(Elem, 0, L).
-% wstaw(Elem, T, L)->
-%     lists:foldl(fun(E,T,A) when E<Elem and T==0 -> A++[Elem], T+1; (E,A)->A++[E] end, [], L).
+wstaw(Elem, L) ->
+    lists:reverse(lists:foldl(fun(E, Acc=[AccH|_]) when Elem=<E andalso Elem>AccH -> [E, Elem|Acc]; (E, Acc) -> [E|Acc] end, [], L)).
