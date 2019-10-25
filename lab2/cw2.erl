@@ -44,7 +44,7 @@ iterate(S, IsDone, Transform) ->
     end.
 
 examp_while(X)->
-    iterate(5,fun(G) -> X, X<G end,fun(_) -> X*2 end).
+    iterate(5,fun(G) -> X, X<G end,fun(_) -> X+2 end).
 
 zamien(From,To,L)->
     lists:foldl(fun(E,A) when E==From -> A++[To]; (E,A)->A++[E] end, [], L).

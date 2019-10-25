@@ -17,13 +17,23 @@ old_men([_|People], Acc) -> old_men(People, Acc).
 
 
 % filter(fun(X) -> X rem 2 == 0 end, lists:seq(1,10)).
-% filter(Pred, L) -> lists:reverse(filter(Pred, L,[])).
-% filter(_, [], Acc) -> Acc;
-% filter(Pred, [H|T], Acc) ->
-%     case Pred(H) of
-%         true  -> filter(Pred, T, [H|Acc]);
-%         false -> filter(Pred, T, Acc)
-%     end.
+filter(Pred, L) -> lists:reverse(filter(Pred, L,[])).
+filter(_, [], Acc) -> Acc;
+filter(Pred, [H|T], Acc) ->
+    case Pred(H) of
+        true  -> filter(Pred, T, [H|Acc]);
+        false -> filter(Pred, T, Acc)
+    end.
 
 % People = [{male,45},{female,67},{male,66},{female,12},{unknown,174},{male,74}].
 % filter(fun({Gender,Age}) -> Gender == male andalso Age > 60 end, People).
+
+% map(F, L)->
+%     [F(X) || X<-L].
+
+% map(F, L)->
+%     lists:foldl(fun(E, Acc)->Acc++[F(E)] end,[],L).
+
+foreach(F, L)->
+    lists:foldl(fun(E, Acc)->F(E),Acc end,ok,L).
+
