@@ -1,0 +1,18 @@
+podstawowe cechy agentów - pojęcia + implementacja w erlangu
+
+zadania ->zaprezentować obie |  oryginalna wersja i zmodyfikowana
+
+grupa 2
+A -> 2 | tutorial z neta: https://learnyousomeerlang.com/designing-a-concurrent-application
+
+Zmodyfikuj aplikację reminder (H) w taki sposób, by dodatkowo informowano klientów, z odpowiednim
+wyprzedzeniem, o zbliżającym się terminie alarmu (np. alarm za X dni/godzin/minut/sekund). Liczba
+uprzedzeń i termin ich wysyłania powinny być parametrami alarmu. Zastanów się nad sposobem obrazowania
+działania systemu (wersji oryginalnej i po modyfikacji systemu).
+
+----------
+
+B -> 4 | https://learnyousomeerlang.com/finite-state-machines#a-trading-system-specification
+
+Zmodyfikuj przykład „Trading System” (H) w taki sposób, by po każdej ofercie, bądź wycofaniu, gracza A
+musiała nastąpić oferta, bądź wycofanie, gracza B.

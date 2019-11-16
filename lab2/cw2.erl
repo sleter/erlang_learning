@@ -54,3 +54,12 @@ usun(Elem,L)->
 
 wstaw(Elem, L) ->
     lists:reverse(lists:foldl(fun(E, Acc=[AccH|_]) when Elem=<E andalso Elem>AccH -> [E, Elem|Acc]; (E, Acc) -> [E|Acc] end, [], L)).
+
+insert(Elem, List) ->
+    lists:reverse(element(2, lists:foldl(
+        fun(Value, {State, Acc}) -> case {State, Elem > Value} of
+            {to_insert, true} -> {to_insert, [Value|Acc]};
+            {to_insert, false} -> {inserted, [Value, Elem | Acc]};
+            {inserted, _} -> {inserted, [Value|Acc]}
+        end
+        end,{to_insert,[]}, List))).

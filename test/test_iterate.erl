@@ -39,3 +39,12 @@ filter(Pred, L)->
                 false -> {T,Out}
             end
         end)).
+
+mapi(F, L)->
+    element(1, iterate(
+        {[], L},
+        fun({_, []})-> true; ({_, [_|_]})->false end,
+        fun({Acc, [H|T]})->
+            {Acc++[F(H)], T}
+        end
+    )).

@@ -107,3 +107,17 @@ partition(Pred, L)->
         {[],[]},
         L
     ).
+
+dropwhile2(Pred, L)->
+    element(1, lists:foldl(
+        fun(E, {AccL, false})->
+            case Pred(E) of
+                true -> {AccL++[E], false};
+                false -> {AccL, true}
+            end;
+        (_, {AccL, true})->
+            {AccL, true}
+        end,
+        {[], false},
+        L
+    )).

@@ -1,0 +1,59 @@
+1. Compile sources: erl -make
+2. Run Erlang shell with compiled sources: erl -pa ebin/
+3. Commands:
+
+# Run server
+evserv:start().
+
+# Monitor if server is down
+evserv:subscribe(self()).
+
+# Add event in future
+evserv:add_event("name1", "description1", {{2019, 12, 1}, {9, 20, 0}}).
+
+# No response form agent
+evserv:listen(5).
+
+# Cancel event
+evserv:cancel("name1").
+
+# Add closer event
+evserv:add_event("name2", "description2", {{2019, 11, 16}, {9, 38, 0}}).
+
+# Wait for remainder
+evserv:listen(2000).
+
+4. Improved vesrion -> add_event create many agents with remainder dates
+
+* Make all functions work with improved version! (ie. cancel)
+* Alarm will be triggered in (difference between alarm date and remainder date)
+
+# Check number of events
+evserv:events_num().
+
+# Show events
+evserv:events_show().
+
+# Add event with remainders
+evserv:add_event2("name", "description", {{2019, 11, 16}, {12, 30, 0}}, [{{2019, 11, 16}, {12, 27, 0}}, {{2019, 11, 16}, {12, 28, 0}}]).
+
+# Listen loop for experiment | delay between events triggered
+evserv:listen_loop(100).
+
+# Cancel event and remainders
+evserv:cancel_with_reminders("name").
+
+# Cancell event with reminder example
+evserv:start().
+evserv:subscribe(self()).
+evserv:add_event2("name", "description", {{2019, 11, 16}, {15, 30, 0}}, [{{2019, 11, 16}, {15, 27, 0}}, {{2019, 11, 16}, {15, 28, 0}}]).
+evserv:events_show().
+evserv:cancel_with_reminders("name").
+evserv:events_show().
+
+# Create client and listen for reminders | change date!
+evserv:start().
+evserv:subscribe(self()).
+evserv:add_event2("name", "description", {{2019, 11, 16}, {17, 00, 0}}, [{{2019, 11, 16}, {15, 07, 0}}, {{2019, 11, 16}, {15, 08, 0}}]).
+evserv:events_show().
+evserv:listen_loop(500).
