@@ -46,7 +46,7 @@ evserv:cancel_with_reminders("name").
 # Cancell event with reminder example
 evserv:start().
 evserv:subscribe(self()).
-evserv:add_event2("name", "description", {{2019, 11, 16}, {15, 30, 0}}, [{{2019, 11, 16}, {15, 27, 0}}, {{2019, 11, 16}, {15, 28, 0}}]).
+evserv:add_event2("name", "description", {{2019, 11, 28}, {20, 38, 0}}, [{{2019, 11, 28}, {20, 36, 0}}, {{2019, 11, 28}, {20, 37, 0}}]).
 evserv:events_show().
 evserv:cancel_with_reminders("name").
 evserv:events_show().
@@ -54,6 +54,6 @@ evserv:events_show().
 # Create client and listen for reminders | change date!
 evserv:start().
 evserv:subscribe(self()).
-evserv:add_event2("name", "description", {{2019, 11, 16}, {17, 00, 0}}, [{{2019, 11, 16}, {15, 07, 0}}, {{2019, 11, 16}, {15, 08, 0}}]).
+evserv:add_event2("name", "description", {{2019, 11, 28}, {8, 15, 0}}, [{{2019, 11, 28}, {8, 13, 0}}, {{2019, 11, 28}, {8, 14, 0}}]).
 evserv:events_show().
 evserv:listen_loop(500).
