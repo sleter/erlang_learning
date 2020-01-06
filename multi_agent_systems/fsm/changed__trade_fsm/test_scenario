@@ -1,0 +1,60 @@
+Changes:
+* 14 - additional functions
+* 125 - Pid extraction during communication between nodes
+* 166-182 - Added states to negotiate when waiting for reply or forcing user to reply
+* 210-253 - Functions that deal with synchronous and asycnhronous queries when changing states
+* 258-268 - When someone change offer after the other client used ready function, client should be returned to 
+
+
+Run two terminals/nodes with given names:
+$> cd Documents/Github/erlang_learning/multi_agent_systems/fsm/changed__trade_fsm
+$> erl -sname node1
+$> erl -sname node2
+
+Compiling sources and connecting terminals:
+node1@sleter $> net_kernel:connect_node(node2@sleter).
+node1@sleter $> c(trade_fsm_changed).
+node1@sleter $> {_, Pid} = trade_fsm_changed:start_link("Szymon").
+node1@sleter $> register(szymon_fsm, Pid).
+
+node2@sleter $> c(trade_fsm_changed).
+node2@sleter $> {_, Pid} = trade_fsm_changed:start_link("Ola").
+node2@sleter $> register(ola_fsm, Pid).
+
+Exemplanary communication:
+node1@sleter $> trade_fsm_changed:trade(Pid, {ola_fsm, node2@sleter}).
+node2@sleter $> trade_fsm_changed:accept_trade(Pid).
+node1@sleter $> trade_fsm_changed:make_offer(Pid, "orange").
+### Trying to add another item
+node1@sleter $> trade_fsm_changed:make_offer(Pid, "orange2").
+node2@sleter $> trade_fsm_changed:make_offer(Pid, "lemon").
+### Make and retract offer scenario
+node2@sleter $> trade_fsm_changed:make_offer(Pid, "melon").
+node1@sleter $> trade_fsm_changed:retract_offer(Pid, "orange").
+### Ready scenario
+node1@sleter $> trade_fsm_changed:ready(Pid).
+node2@sleter $> trade_fsm_changed:retract_offer(Pid, "lemon").
+node1@sleter $> trade_fsm_changed:make_offer(Pid, "apple").
+### Accept offer
+node1@sleter $> trade_fsm_changed:ready(Pid).
+node2@sleter $> trade_fsm_changed:ready(Pid).
+
+Other ready scenario:
+node1@sleter $> trade_fsm_changed:trade(Pid, {ola_fsm, node2@sleter}).
+node2@sleter $> trade_fsm_changed:accept_trade(Pid).
+node1@sleter $> trade_fsm_changed:make_offer(Pid, "orange").
+node2@sleter $> trade_fsm_changed:make_offer(Pid, "orange2").
+node1@sleter $> trade_fsm_changed:ready(Pid).
+node2@sleter $> trade_fsm_changed:make_offer(Pid, "lemon").
+node1@sleter $> trade_fsm_changed:ready(Pid).
+
+
+### -----------------------------------------------
+net_kernel:connect_node(node2@sleter).
+c(trade_fsm_changed).
+{_, Pid} = trade_fsm_changed:start_link("Szymon").
+register(szymon_fsm, Pid).
+
+c(trade_fsm_changed).
+{_, Pid} = trade_fsm_changed:start_link("Ola").
+register(ola_fsm, Pid).
