@@ -217,12 +217,12 @@ wait_for_reply(_, S) ->
     notice(S, "Wait for reply or cancel negotation.", []),
     {next_state, wait_for_reply, S}.
 
-wait_for_reply({do_offer, Item}, _, S=#state{otheritems=OtherItems}) ->
-    notice(S, "other player offering ~p", [Item]),
-    {next_state, negotiate, S#state{otheritems=add(Item, OtherItems)}};
-wait_for_reply({undo_offer, Item}, _, S=#state{otheritems=OtherItems}) ->
-    notice(S, "Other player cancelling offer on ~p", [Item]),
-    {next_state, negotiate, S#state{otheritems=remove(Item, OtherItems)}};
+% wait_for_reply({do_offer, Item}, _, S=#state{otheritems=OtherItems}) ->
+%     notice(S, "other player offering ~p", [Item]),
+%     {next_state, negotiate, S#state{otheritems=add(Item, OtherItems)}};
+% wait_for_reply({undo_offer, Item}, _, S=#state{otheritems=OtherItems}) ->
+%     notice(S, "Other player cancelling offer on ~p", [Item]),
+%     {next_state, negotiate, S#state{otheritems=remove(Item, OtherItems)}};
 wait_for_reply(_, _, S) ->
     notice(S, "Wait for reply or cancel negotation.", []),
     {next_state, wait_for_reply, S}.
@@ -239,17 +239,16 @@ force_reply(_, S) ->
     notice(S, "Wait for reply or cancel negotation.", []),
     {next_state, force_reply, S}.
 
-force_reply({make_offer, Item}, _, S=#state{ownitems=OwnItems}) ->
-    do_offer(S#state.other, Item),
-    notice(S, "offering ~p", [Item]),
-    {next_state, negotiate, S#state{ownitems=add(Item, OwnItems)}};
-force_reply({retract_offer, Item}, _, S=#state{ownitems=OwnItems}) ->
-    undo_offer(S#state.other, Item),
-    notice(S, "cancelling offer on ~p", [Item]),
-    {next_state, negotiate, S#state{ownitems=remove(Item, OwnItems)}};
-force_reply(_, From, S) ->
-    notice(S, "Wait for reply or cancel negotation. 2", []),
-    not_yet(From),
+% force_reply({make_offer, Item}, _, S=#state{ownitems=OwnItems}) ->
+%     do_offer(S#state.other, Item),
+%     notice(S, "offering ~p", [Item]),
+%     {next_state, negotiate, S#state{ownitems=add(Item, OwnItems)}};
+% force_reply({retract_offer, Item}, _, S=#state{ownitems=OwnItems}) ->
+%     undo_offer(S#state.other, Item),
+%     notice(S, "cancelling offer on ~p", [Item]),
+%     {next_state, negotiate, S#state{ownitems=remove(Item, OwnItems)}};
+force_reply(_, _, S) ->
+    notice(S, "Wait for reply or cancel negotation.", []),
     {next_state, are_you_ready, S}.
 
 %% other side offering an item. Don't forget our client is still
