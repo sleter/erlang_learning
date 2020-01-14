@@ -1,0 +1,11 @@
+Symulacja działania stacji pogodowej
+ * stacja ma swoje czujniki, które mierzą różne procesy a wartości zapisywane są w stacji pogodowej
+ * stacja pogodowa zapisuje informacje z czujników
+ * klienci mogą korzystać z informacji zapisanych w stacji pogodowej (pobierać je)
+
+erl -make
+erl
+
+weather_station:start().
+weather_station:subscribe(self()).
+weather_station:get_info().
