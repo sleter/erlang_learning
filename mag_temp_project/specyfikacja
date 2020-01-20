@@ -8,4 +8,8 @@ erl
 
 weather_station:start().
 weather_station:subscribe(self()).
+
 weather_station:get_info().
+weather_station:get_sensor("temperature").
+weather_station:get_sensor("inne").
+weather_station:get_saved_sensor_values("humidity").
